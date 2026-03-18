@@ -909,8 +909,7 @@ tt.addEventListener('click',()=>{const d=html.dataset.theme==='dark';html.datase
 /* SCROLL */
 function goTo(id){const el=document.getElementById(id);if(!el)return;window.scrollTo({top:el.getBoundingClientRect().top+window.scrollY-65,behavior:'smooth'});}
 
-/* YEAR */
-document.getElementById('yr').textContent=new Date().getFullYear();
+
 
 /* NAV */
 const mn=document.getElementById('mn');
