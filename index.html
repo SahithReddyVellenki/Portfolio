@@ -1,0 +1,945 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Sahith Reddy Vellenki — AI/ML Engineer Portfolio</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,800;0,900;1,800&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
+<style>
+/* ══════════════════════════════════
+   TOKENS
+══════════════════════════════════ */
+:root{
+  --a:#f97316; --a2:#0ea5e9;
+  --as:#fed7aa; --a2s:#bae6fd;
+  --nh:62px; --ease:cubic-bezier(.22,1,.36,1);
+}
+[data-theme="light"]{
+  --bg:#fdf6f0; --bg2:#fff8f3;
+  --tx:#1a1200; --tx2:#5a3e28;
+  --bd:#f0d9c8; --nb:rgba(253,246,240,.93);
+  --cd:#ffffff; --cdb:rgba(240,217,200,.6);
+  --sh:0 8px 40px rgba(249,115,22,.1);
+  --wm:rgba(249,115,22,.035);
+  --sbg:linear-gradient(140deg,#fdf6f0,#fff0e0);
+}
+[data-theme="dark"]{
+  --bg:#0f0e0c; --bg2:#171410;
+  --tx:#f5e9dd; --tx2:#b89878;
+  --bd:#2a1e14; --nb:rgba(15,14,12,.96);
+  --cd:#1c1814; --cdb:rgba(42,30,20,.7);
+  --sh:0 8px 40px rgba(251,146,60,.14);
+  --wm:rgba(251,146,60,.03);
+  --a:#fb923c; --a2:#38bdf8;
+  --as:#7c2d12; --a2s:#0c4a6e;
+  --sbg:linear-gradient(140deg,#0f0e0c,#1a1208);
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--tx);
+  transition:background .4s,color .4s;overflow-x:hidden;
+  user-select:none;-webkit-user-select:none;}
+
+/* ══ PROGRESS BAR ══ */
+#prog{position:fixed;top:0;left:0;height:3px;z-index:9999;width:0%;
+  background:linear-gradient(90deg,var(--a),var(--a2),#a855f7,var(--a));
+  background-size:300%;animation:psh 3s linear infinite;
+  border-radius:0 2px 2px 0;box-shadow:0 0 12px var(--a);}
+@keyframes psh{0%{background-position:0%}100%{background-position:300%}}
+
+/* ══ CURSOR GLOW ══ */
+#cglow{position:fixed;pointer-events:none;z-index:9990;
+  width:400px;height:400px;border-radius:50%;transform:translate(-50%,-50%);
+  background:radial-gradient(circle,rgba(249,115,22,.055) 0%,transparent 65%);}
+
+/* ══ WATERMARKS ══ */
+.wm{position:fixed;pointer-events:none;font-family:'Playfair Display',serif;
+  font-weight:900;letter-spacing:.14em;color:var(--wm);z-index:0;white-space:nowrap;}
+.wm1{font-size:7rem;bottom:9%;left:-2%;transform:rotate(-13deg)}
+.wm2{font-size:5.5rem;top:27%;right:-2%;transform:rotate(11deg)}
+
+/* ══ SECTION BG CANVAS ══ */
+.sbg{position:absolute;inset:0;z-index:0;pointer-events:none;overflow:hidden}
+.sbg svg{position:absolute;width:100%;height:100%}
+
+/* ══ NAV ══ */
+nav{position:fixed;top:0;left:0;right:0;z-index:998;
+  background:var(--nb);backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px);
+  border-bottom:1px solid var(--bd);padding:0 2.4rem;height:var(--nh);
+  display:flex;align-items:center;justify-content:space-between;
+  transition:background .4s,border-color .4s,box-shadow .3s;}
+nav.sc{box-shadow:0 4px 30px rgba(0,0,0,.07)}
+.nb{font-family:'Playfair Display',serif;font-weight:900;font-size:1.3rem;
+  color:var(--a);text-decoration:none;}
+.nb span{color:var(--a2)}
+.nl{display:flex;align-items:center;gap:.06rem;list-style:none}
+.nl a{font-size:.79rem;font-weight:500;color:var(--tx2);
+  text-decoration:none;padding:.3rem .7rem;border-radius:7px;
+  transition:color .2s,background .2s;cursor:pointer;position:relative;overflow:hidden;}
+.nl a::after{content:'';position:absolute;bottom:0;left:50%;right:50%;height:2px;
+  background:var(--a);border-radius:2px;
+  transition:left .22s var(--ease),right .22s var(--ease);}
+.nl a:hover::after,.nl a.na::after{left:10%;right:10%}
+.nl a:hover,.nl a.na{color:var(--a);background:rgba(249,115,22,.07)}
+.nr{display:flex;align-items:center;gap:.55rem}
+.tb{background:var(--cd);border:1px solid var(--bd);border-radius:50%;
+  width:36px;height:36px;display:flex;align-items:center;justify-content:center;
+  cursor:pointer;transition:all .22s;color:var(--a);font-size:1rem;}
+.tb:hover{background:var(--as);transform:rotate(22deg) scale(1.1)}
+.sb{display:inline-flex;align-items:center;gap:.5rem;
+  padding:.46rem 1.05rem;border-radius:10px;font-size:.79rem;font-weight:700;
+  text-decoration:none;transition:transform .22s,box-shadow .22s;
+  cursor:pointer;border:2px solid transparent;white-space:nowrap;}
+.sb:hover{transform:translateY(-2px)}
+.gh{background:#f0f4fa;color:#1a1a1a;border-color:#d0d8e8}
+.gh:hover{box-shadow:0 4px 14px rgba(0,0,0,.1);background:#e2e8f4}
+.li{background:#0a66c2;color:#fff;border-color:#0a66c2}
+.li:hover{background:#0958a8;box-shadow:0 4px 14px rgba(10,102,194,.38)}
+.gm{background:#d93025;color:#fff;border-color:#d93025}
+.gm:hover{background:#c1271e;box-shadow:0 4px 14px rgba(217,48,37,.38)}
+
+/* ══ SECTION BASE ══ */
+section{position:relative;overflow:hidden}
+.si{max-width:1100px;margin:0 auto;padding:5.5rem 2rem;position:relative;z-index:1}
+.stg{font-size:.69rem;font-weight:700;letter-spacing:.18em;text-transform:uppercase;
+  color:var(--a2);margin-bottom:.5rem;display:inline-flex;align-items:center;gap:.45rem;}
+.stg::before{content:'';display:block;width:20px;height:2px;background:var(--a2);border-radius:2px}
+.sh{font-family:'Playfair Display',serif;
+  font-size:clamp(1.75rem,3.2vw,2.65rem);font-weight:900;
+  line-height:1.07;letter-spacing:-.025em;margin-bottom:.45rem;}
+.ss{font-size:.91rem;color:var(--tx2);margin-bottom:2.8rem;max-width:520px;line-height:1.72}
+.oa{color:var(--a)}.ob{color:var(--a2)}
+
+/* ══ REVEAL ══ */
+.rv{opacity:0;transform:translateY(36px) scale(.97);
+  transition:opacity .72s var(--ease),transform .72s var(--ease);}
+.rv.fl{transform:translateX(-44px) scale(.97)}
+.rv.fr{transform:translateX(44px) scale(.97)}
+.rv.vis{opacity:1;transform:none}
+.sg>*{opacity:0;transform:translateY(30px);
+  transition:opacity .6s var(--ease),transform .6s var(--ease);}
+.sg.vis>*:nth-child(1){opacity:1;transform:none;transition-delay:.04s}
+.sg.vis>*:nth-child(2){opacity:1;transform:none;transition-delay:.13s}
+.sg.vis>*:nth-child(3){opacity:1;transform:none;transition-delay:.22s}
+.sg.vis>*:nth-child(4){opacity:1;transform:none;transition-delay:.31s}
+.sg.vis>*:nth-child(5){opacity:1;transform:none;transition-delay:.40s}
+.sg.vis>*:nth-child(6){opacity:1;transform:none;transition-delay:.49s}
+.sg.vis>*:nth-child(7){opacity:1;transform:none;transition-delay:.58s}
+.sg.vis>*:nth-child(8){opacity:1;transform:none;transition-delay:.67s}
+.sg.vis>*:nth-child(9){opacity:1;transform:none;transition-delay:.76s}
+.sg.vis>*:nth-child(10){opacity:1;transform:none;transition-delay:.85s}
+.sg.vis>*:nth-child(11){opacity:1;transform:none;transition-delay:.94s}
+.sg.vis>*:nth-child(12){opacity:1;transform:none;transition-delay:1.03s}
+
+/* ══ HOME ══ */
+#home{min-height:100vh;display:flex;align-items:center;padding-top:var(--nh);
+  background:linear-gradient(140deg,#fdf6f0 0%,#fff0e2 60%,#fce3ca 100%);}
+[data-theme="dark"] #home{background:linear-gradient(140deg,#0f0e0c 0%,#1a1208 60%,#201510 100%)}
+#home .si{display:grid;grid-template-columns:1.1fr .9fr;gap:3rem;align-items:center;
+  padding-top:4rem;padding-bottom:4rem;}
+.he{font-size:.77rem;font-weight:600;letter-spacing:.2em;text-transform:uppercase;
+  color:var(--a2);margin-bottom:.9rem;display:flex;align-items:center;gap:.5rem;}
+.he::before{content:'';display:block;width:26px;height:2px;background:var(--a2)}
+.hn{font-family:'Playfair Display',serif;
+  font-size:clamp(2.5rem,5.2vw,4.2rem);font-weight:900;
+  line-height:1.05;letter-spacing:-.035em;margin-bottom:.45rem;}
+.hr{font-size:.99rem;color:var(--tx2);margin-bottom:1.8rem;line-height:1.72}
+.hb{display:flex;gap:.9rem;flex-wrap:wrap;margin-bottom:2rem}
+.bp{background:var(--a);color:#fff;padding:.72rem 1.8rem;border-radius:10px;
+  font-weight:700;font-size:.9rem;text-decoration:none;border:2px solid var(--a);
+  transition:all .22s;cursor:pointer;}
+.bp:hover{background:transparent;color:var(--a);transform:translateY(-2px);box-shadow:0 6px 22px rgba(249,115,22,.3)}
+.bs{background:transparent;color:var(--a2);padding:.72rem 1.8rem;border-radius:10px;
+  font-weight:700;font-size:.9rem;border:2px solid var(--a2);
+  text-decoration:none;transition:all .22s;cursor:pointer;}
+.bs:hover{background:var(--a2);color:#fff;transform:translateY(-2px)}
+.sr{display:flex;gap:2rem;flex-wrap:wrap}
+.sn{font-family:'Playfair Display',serif;font-size:2.2rem;font-weight:900;color:var(--a);line-height:1}
+.sl{font-size:.7rem;font-weight:500;color:var(--tx2);margin-top:.2rem}
+.tc{display:inline-block;width:3px;height:.9em;background:var(--a2);
+  margin-left:2px;vertical-align:middle;border-radius:2px;
+  animation:tb .7s step-end infinite;}
+@keyframes tb{0%,100%{opacity:1}50%{opacity:0}}
+
+/* ══ HOME BG SCENE ══ */
+.home-scene{
+  position:absolute;right:0;top:0;bottom:0;width:50%;
+  display:flex;align-items:center;justify-content:center;
+  pointer-events:none;
+}
+@keyframes card-float{0%,100%{transform:translateY(0)}50%{transform:translateY(-10px)}}
+
+/* ══ PROJECTS ══ */
+#projects{background:linear-gradient(155deg,#edf7ff 0%,#e2f1fd 50%,#eaf5fe 100%)}
+[data-theme="dark"] #projects{background:linear-gradient(155deg,#0b0f18 0%,#0d1421 50%,#0c1219 100%)}
+.pg{display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:1.4rem}
+.pc{background:var(--cd);border:1px solid var(--cdb);border-radius:18px;padding:1.7rem;
+  transition:transform .3s var(--ease),box-shadow .3s,border-color .3s;
+  position:relative;overflow:hidden;transform-style:preserve-3d;}
+.pc::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;
+  background:linear-gradient(90deg,var(--a),var(--a2));border-radius:18px 18px 0 0;}
+.pc::after{content:'';position:absolute;inset:0;border-radius:18px;
+  background:radial-gradient(circle at var(--mx,50%) var(--my,50%),rgba(249,115,22,.07) 0%,transparent 58%);
+  opacity:0;transition:opacity .3s;pointer-events:none;}
+.pc:hover::after{opacity:1}
+.pc:hover{transform:translateY(-7px);box-shadow:0 22px 60px rgba(0,0,0,.11);border-color:rgba(249,115,22,.4)}
+.pi{width:46px;height:46px;border-radius:12px;background:var(--as);
+  display:flex;align-items:center;justify-content:center;
+  font-size:1.25rem;color:var(--a);margin-bottom:1rem;transition:transform .3s;}
+.pc:hover .pi{transform:scale(1.1) rotate(-6deg)}
+.pcat{font-size:.67rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--a2);margin-bottom:.3rem}
+.pt{font-family:'Playfair Display',serif;font-size:1.07rem;font-weight:800;margin-bottom:.5rem}
+.pd{font-size:.83rem;color:var(--tx2);line-height:1.68;margin-bottom:1rem}
+.tgs{display:flex;flex-wrap:wrap;gap:.4rem}
+.tg{background:rgba(14,165,233,.1);color:var(--a2);
+  border:1px solid rgba(14,165,233,.22);border-radius:6px;
+  padding:.2rem .6rem;font-size:.67rem;font-weight:600;
+  transition:background .2s,color .2s;}
+.tg:hover{background:var(--a2);color:#fff}
+
+/* ══ EXPERIENCE ══ */
+#experience{background:linear-gradient(148deg,#f4f0ff 0%,#ede7ff 50%,#f0ebff 100%)}
+[data-theme="dark"] #experience{background:linear-gradient(148deg,#100d1c 0%,#160f22 50%,#120d1d 100%)}
+.tl{position:relative;padding-left:2.4rem}
+.tl::before{content:'';position:absolute;left:.5rem;top:0;bottom:0;width:2px;
+  background:linear-gradient(180deg,var(--a),var(--a2),#a855f7,var(--a));border-radius:2px;}
+.tli{position:relative;margin-bottom:2.8rem;padding-left:1.6rem}
+.tld{position:absolute;left:-2.25rem;top:.45rem;width:16px;height:16px;border-radius:50%;
+  background:var(--a);border:3px solid var(--bg);
+  box-shadow:0 0 0 3px var(--a),0 0 18px rgba(249,115,22,.4);transition:transform .3s,box-shadow .3s;}
+.tli:hover .tld{transform:scale(1.35);box-shadow:0 0 0 4px var(--a),0 0 28px rgba(249,115,22,.6)}
+.tlp{font-size:.69rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--a2);margin-bottom:.3rem}
+.tlt{font-family:'Playfair Display',serif;font-size:1.08rem;font-weight:800;margin-bottom:.22rem}
+.tlc{font-size:.84rem;font-weight:600;color:var(--a);margin-bottom:.5rem;display:flex;align-items:center;gap:.4rem}
+.tlb{display:flex;flex-direction:column;gap:.3rem;margin-top:.5rem}
+.tlb li{font-size:.82rem;color:var(--tx2);line-height:1.65;list-style:none;
+  position:relative;padding-left:1.1rem;}
+.tlb li::before{content:'▸';position:absolute;left:0;color:var(--a);font-size:.7rem;top:.1rem}
+
+/* ══ PUBLICATIONS ══ */
+#publications{background:linear-gradient(142deg,#edfaf2 0%,#e5f9ed 50%,#eafaf1 100%)}
+[data-theme="dark"] #publications{background:linear-gradient(142deg,#091210 0%,#0c1812 50%,#0b1511 100%)}
+.pbl{display:flex;flex-direction:column;gap:1.1rem}
+.pbc{background:var(--cd);border:1px solid var(--cdb);border-radius:16px;
+  padding:1.5rem 1.7rem;display:flex;gap:1.3rem;align-items:flex-start;
+  transition:transform .28s var(--ease),border-color .28s,box-shadow .28s;}
+.pbc:hover{transform:translateX(7px);border-color:rgba(16,185,129,.5);box-shadow:0 6px 30px rgba(16,185,129,.1)}
+.pbn{font-family:'Playfair Display',serif;font-size:2rem;font-weight:900;
+  color:var(--a2);opacity:.28;min-width:2.8rem;line-height:1;transition:opacity .3s;}
+.pbc:hover .pbn{opacity:.7}
+.pbtl{font-family:'Playfair Display',serif;font-size:.96rem;font-weight:800;margin-bottom:.3rem;line-height:1.35}
+.pbm{font-size:.77rem;color:var(--a2);font-weight:600;margin-bottom:.22rem}
+.pba{font-size:.77rem;color:var(--tx2)}
+
+/* ══ SKILLS ══ */
+#skills{background:linear-gradient(152deg,#fffaeb 0%,#fef3c3 50%,#fde68a1a 100%)}
+[data-theme="dark"] #skills{background:linear-gradient(152deg,#12100a 0%,#1a1508 50%,#16120a 100%)}
+.skg{display:grid;grid-template-columns:repeat(auto-fill,minmax(252px,1fr));gap:1.2rem}
+.skgr{background:var(--cd);border:1px solid var(--cdb);border-radius:16px;padding:1.5rem;
+  transition:transform .3s var(--ease),box-shadow .3s;}
+.skgr:hover{transform:translateY(-5px);box-shadow:0 14px 42px rgba(245,158,11,.13)}
+.skgt{font-size:.74rem;font-weight:700;color:var(--a2);
+  text-transform:uppercase;letter-spacing:.12em;margin-bottom:1rem;
+  display:flex;align-items:center;gap:.48rem;}
+.skis{display:flex;flex-wrap:wrap;gap:.4rem}
+.ski{background:rgba(249,115,22,.08);border:1px solid rgba(249,115,22,.18);
+  border-radius:7px;padding:.27rem .68rem;font-size:.74rem;font-weight:600;
+  color:var(--tx);transition:all .2s;cursor:default;}
+.ski:hover{background:var(--a);color:#fff;transform:scale(1.06);border-color:var(--a)}
+
+/* ══ ACHIEVEMENTS ══ */
+#achievements{background:linear-gradient(138deg,#fff7ec 0%,#ffeccc 50%,#fed7aa33 100%)}
+[data-theme="dark"] #achievements{background:linear-gradient(138deg,#141008 0%,#1c1309 50%,#181107 100%)}
+.ag{display:grid;grid-template-columns:repeat(auto-fill,minmax(290px,1fr));gap:1.2rem}
+.ac{background:var(--cd);border:1px solid var(--cdb);border-radius:16px;padding:1.5rem;
+  display:flex;gap:1rem;align-items:flex-start;
+  transition:transform .3s var(--ease),box-shadow .3s,border-color .3s;}
+.ac:hover{transform:translateY(-5px) scale(1.015);
+  box-shadow:0 14px 44px rgba(249,115,22,.15);border-color:rgba(249,115,22,.35)}
+.aci{width:48px;height:48px;min-width:48px;border-radius:14px;
+  display:flex;align-items:center;justify-content:center;font-size:1.25rem;
+  transition:transform .3s;}
+.ac:hover .aci{transform:rotate(-9deg) scale(1.12)}
+.acio{background:var(--as);color:var(--a)}
+.acib{background:var(--a2s);color:var(--a2)}
+.act{font-family:'Playfair Display',serif;font-size:.95rem;font-weight:800;margin-bottom:.28rem}
+.acd{font-size:.8rem;color:var(--tx2);line-height:1.6}
+
+/* ══ ABOUT ══ */
+#about{background:linear-gradient(148deg,#fdf3ff 0%,#fae6ff 50%,#f5cfff33 100%)}
+[data-theme="dark"] #about{background:linear-gradient(148deg,#120d18 0%,#1a1022 50%,#150f1c 100%)}
+#about .si{display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:start}
+.at p{font-size:.92rem;color:var(--tx2);line-height:1.85;margin-bottom:1rem}
+.ah{display:flex;flex-direction:column;gap:.88rem}
+.hi{display:flex;align-items:center;gap:1rem;
+  background:var(--cd);border:1px solid var(--cdb);
+  border-radius:14px;padding:.95rem 1.2rem;
+  transition:transform .25s var(--ease),border-color .25s,box-shadow .25s;}
+.hi:hover{transform:translateX(6px);border-color:rgba(168,85,247,.4);box-shadow:0 4px 20px rgba(168,85,247,.1)}
+.hii{width:40px;height:40px;min-width:40px;border-radius:10px;
+  background:var(--as);color:var(--a);display:flex;align-items:center;justify-content:center;font-size:1rem;}
+.hit{font-size:.86rem;font-weight:700;margin-bottom:.1rem}
+.his{font-size:.75rem;color:var(--tx2)}
+
+/* ══ FOOTER ══ */
+footer{background:var(--bg2);border-top:1px solid var(--bd);
+  padding:3rem 2rem;text-align:center;position:relative;z-index:1;}
+.fb{font-family:'Playfair Display',serif;font-size:1.6rem;font-weight:900;color:var(--a);margin-bottom:.3rem}
+.fl{display:flex;justify-content:center;gap:1rem;margin:1rem 0;flex-wrap:wrap}
+.fl a{color:var(--tx2);text-decoration:none;font-size:.79rem;transition:color .18s;cursor:pointer}
+.fl a:hover{color:var(--a)}
+.cp{font-size:.75rem;color:var(--tx2);margin-top:.6rem;line-height:1.75}
+
+/* ══ RESPONSIVE ══ */
+@media(max-width:960px){
+  #home .si,#about .si{grid-template-columns:1fr}
+  .home-scene{position:relative;width:100%;height:220px;top:0}
+  nav{padding:0 1rem}.nl{display:none}
+  .wm1,.wm2{display:none}
+  .sb{padding:.4rem .8rem;font-size:.74rem}
+}
+</style>
+</head>
+<body>
+
+<div id="prog"></div>
+<div id="cglow"></div>
+<div class="wm wm1">SAHITH REDDY</div>
+<div class="wm wm2">MS · CS</div>
+
+<!-- NAV -->
+<nav id="mn">
+  <a class="nb" href="#home">SRV<span>.</span></a>
+  <ul class="nl">
+    <li><a onclick="goTo('home')" data-s="home">Home</a></li>
+    <li><a onclick="goTo('projects')" data-s="projects">Projects</a></li>
+    <li><a onclick="goTo('experience')" data-s="experience">Experience</a></li>
+    <li><a onclick="goTo('publications')" data-s="publications">Publications</a></li>
+    <li><a onclick="goTo('skills')" data-s="skills">Skills</a></li>
+    <li><a onclick="goTo('achievements')" data-s="achievements">Achievements</a></li>
+    <li><a onclick="goTo('about')" data-s="about">About Me</a></li>
+  </ul>
+  <div class="nr">
+    <a class="sb gh" href="https://github.com/sahithreddy" target="_blank" rel="noopener"><i class="fab fa-github"></i> GitHub</a>
+    <a class="sb li" href="https://www.linkedin.com/in/sahithreddy" target="_blank" rel="noopener"><i class="fab fa-linkedin-in"></i> LinkedIn</a>
+    <a class="sb gm" href="mailto:vellenkisahithreddy@gmail.com"><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M24 5.457v13.909c0 .904-.732 1.636-1.636 1.636h-3.819V11.73L12 16.64l-6.545-4.91v9.273H1.636A1.636 1.636 0 0 1 0 19.366V5.457c0-2.023 2.309-3.178 3.927-1.964L5.455 4.64 12 9.548l6.545-4.91 1.528-1.145C21.69 2.28 24 3.434 24 5.457z"/></svg> Gmail</a>
+    <button class="tb" id="tt"><i class="fas fa-moon" id="ti"></i></button>
+  </div>
+</nav>
+
+<!-- ══════════ HOME ══════════ -->
+<section id="home">
+  <!-- ANIMATED BG: floating code + geometric shapes -->
+  <div class="sbg">
+    <svg viewBox="0 0 1200 700" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <linearGradient id="hg1" x1="0%" y1="0%" x2="100%" y2="100%">
+          <stop offset="0%" stop-color="#f97316" stop-opacity=".07"/>
+          <stop offset="100%" stop-color="#0ea5e9" stop-opacity=".07"/>
+        </linearGradient>
+      </defs>
+      <!-- large soft blob right -->
+      <ellipse cx="950" cy="350" rx="380" ry="340" fill="url(#hg1)">
+        <animateTransform attributeName="transform" type="translate" values="0,0;20,15;0,0" dur="9s" repeatCount="indefinite"/>
+      </ellipse>
+      <!-- floating brackets -->
+      <text x="680" y="180" font-family="monospace" font-size="60" fill="#f97316" opacity=".12" font-weight="bold">
+        { }
+        <animateTransform attributeName="transform" type="translate" values="0,0;0,-20;0,0" dur="6s" repeatCount="indefinite"/>
+      </text>
+      <text x="820" y="420" font-family="monospace" font-size="42" fill="#0ea5e9" opacity=".12" font-weight="bold">
+        &lt;/&gt;
+        <animateTransform attributeName="transform" type="translate" values="0,0;-12,18;0,0" dur="7s" repeatCount="indefinite"/>
+      </text>
+      <text x="700" y="540" font-family="monospace" font-size="36" fill="#a855f7" opacity=".1" font-weight="bold">
+        ( )
+        <animateTransform attributeName="transform" type="translate" values="0,0;10,-12;0,0" dur="8s" repeatCount="indefinite"/>
+      </text>
+      <!-- floating circles -->
+      <circle cx="900" cy="130" r="22" fill="none" stroke="#f97316" stroke-width="2" opacity=".18">
+        <animate attributeName="r" values="22;28;22" dur="4s" repeatCount="indefinite"/>
+        <animateTransform attributeName="transform" type="translate" values="0,0;15,8;0,0" dur="6s" repeatCount="indefinite"/>
+      </circle>
+      <circle cx="1080" cy="280" r="14" fill="#0ea5e9" opacity=".12">
+        <animateTransform attributeName="transform" type="translate" values="0,0;-10,20;0,0" dur="7s" repeatCount="indefinite"/>
+      </circle>
+      <circle cx="780" cy="600" r="30" fill="none" stroke="#0ea5e9" stroke-width="1.5" opacity=".15">
+        <animate attributeName="r" values="30;36;30" dur="5s" repeatCount="indefinite"/>
+      </circle>
+      <circle cx="1150" cy="500" r="18" fill="#a855f7" opacity=".1">
+        <animateTransform attributeName="transform" type="translate" values="0,0;12,-15;0,0" dur="8s" repeatCount="indefinite"/>
+      </circle>
+      <!-- grid dots -->
+      <g opacity=".06" fill="#f97316">
+        <circle cx="640" cy="220" r="3"/><circle cx="680" cy="220" r="3"/><circle cx="720" cy="220" r="3"/>
+        <circle cx="640" cy="260" r="3"/><circle cx="680" cy="260" r="3"/><circle cx="720" cy="260" r="3"/>
+        <circle cx="640" cy="300" r="3"/><circle cx="680" cy="300" r="3"/><circle cx="720" cy="300" r="3"/>
+        <animateTransform attributeName="transform" type="translate" values="0,0;5,10;0,0" dur="10s" repeatCount="indefinite"/>
+      </g>
+      <!-- diagonal lines -->
+      <line x1="850" y1="50" x2="1200" y2="400" stroke="#0ea5e9" stroke-width="1" opacity=".08" stroke-dasharray="8,12">
+        <animate attributeName="stroke-dashoffset" values="0;-40" dur="3s" repeatCount="indefinite"/>
+      </line>
+      <line x1="700" y1="650" x2="1100" y2="150" stroke="#f97316" stroke-width="1" opacity=".07" stroke-dasharray="6,14">
+        <animate attributeName="stroke-dashoffset" values="0;-40" dur="4s" repeatCount="indefinite"/>
+      </line>
+      <!-- neural net nodes -->
+      <g opacity=".12">
+        <circle cx="960" cy="200" r="8" fill="#f97316"/>
+        <circle cx="1020" cy="260" r="8" fill="#0ea5e9"/>
+        <circle cx="1060" cy="180" r="8" fill="#a855f7"/>
+        <circle cx="1000" cy="320" r="8" fill="#f97316"/>
+        <line x1="960" y1="200" x2="1020" y2="260" stroke="#f97316" stroke-width="1.5"/>
+        <line x1="960" y1="200" x2="1060" y2="180" stroke="#0ea5e9" stroke-width="1.5"/>
+        <line x1="1020" y1="260" x2="1000" y2="320" stroke="#a855f7" stroke-width="1.5"/>
+        <line x1="1060" y1="180" x2="1020" y2="260" stroke="#f97316" stroke-width="1.5"/>
+        <animateTransform attributeName="transform" type="translate" values="0,0;10,12;0,0" dur="8s" repeatCount="indefinite"/>
+      </g>
+    </svg>
+  </div>
+
+  <div class="si">
+    <div>
+      <div class="he rv">AI &amp; ML Engineer</div>
+      <h1 class="hn rv" style="transition-delay:.1s">
+        Hi, I'm<br>
+        <span class="oa" id="typed"></span><span class="tc" id="tcur"></span>
+      </h1>
+      <p class="hr rv" style="transition-delay:.2s">AI/ML Engineer passionate about building intelligent systems with LLMs, Deep Learning &amp; NLP. MS CS @ Texas A&amp;M University – Corpus Christi.</p>
+      <div class="hb rv" style="transition-delay:.3s">
+        <a class="bp" onclick="goTo('projects')">View Projects</a>
+        <a class="bs" onclick="goTo('about')">About Me</a>
+      </div>
+      <div class="sr rv" style="transition-delay:.42s">
+        <div><div class="sn" data-count="3">0</div><div class="sl">Projects</div></div>
+        <div><div class="sn" data-count="1">0</div><div class="sl">Publication</div></div>
+        <div><div class="sn" data-count="2">0</div><div class="sl">Years Exp.</div></div>
+        <div><div class="sn" data-count="4">0</div><div class="sl">Certifications</div></div>
+      </div>
+    </div>
+    <!-- right side: floating tech card stack -->
+    <div class="rv fr" style="transition-delay:.2s;display:flex;flex-direction:column;gap:1rem;align-items:flex-start;padding-left:1rem">
+      <div style="background:var(--cd);border:1px solid var(--cdb);border-radius:16px;padding:1.1rem 1.4rem;box-shadow:var(--sh);display:flex;align-items:center;gap:.9rem;animation:card-float 5s ease-in-out infinite;">
+        <span style="font-size:1.8rem">🧠</span>
+        <div><div style="font-family:'Playfair Display',serif;font-weight:800;font-size:.95rem">AI / ML Engineering</div><div style="font-size:.75rem;color:var(--tx2)">LLMs · RAG · Deep Learning</div></div>
+      </div>
+      <div style="background:var(--cd);border:1px solid var(--cdb);border-radius:16px;padding:1.1rem 1.4rem;box-shadow:var(--sh);display:flex;align-items:center;gap:.9rem;animation:card-float 5s ease-in-out infinite;animation-delay:1.2s;margin-left:1.5rem">
+        <span style="font-size:1.8rem">⚙️</span>
+        <div><div style="font-family:'Playfair Display',serif;font-weight:800;font-size:.95rem">Backend &amp; APIs</div><div style="font-size:.75rem;color:var(--tx2)">FastAPI · Flask · REST APIs</div></div>
+      </div>
+      <div style="background:var(--cd);border:1px solid var(--cdb);border-radius:16px;padding:1.1rem 1.4rem;box-shadow:var(--sh);display:flex;align-items:center;gap:.9rem;animation:card-float 5s ease-in-out infinite;animation-delay:2.4s;">
+        <span style="font-size:1.8rem">📄</span>
+        <div><div style="font-family:'Playfair Display',serif;font-weight:800;font-size:.95rem">1 Publication</div><div style="font-size:.75rem;color:var(--tx2)">Deep Learning · Route Detection</div></div>
+      </div>
+      <div style="background:linear-gradient(135deg,var(--a),var(--a2));border-radius:16px;padding:1.1rem 1.4rem;display:flex;align-items:center;gap:.9rem;animation:card-float 5s ease-in-out infinite;animation-delay:3.6s;margin-left:1.5rem">
+        <span style="font-size:1.8rem">🎓</span>
+        <div><div style="font-family:'Playfair Display',serif;font-weight:800;font-size:.95rem;color:#fff">MS CS · TAMUCC</div><div style="font-size:.75rem;color:rgba(255,255,255,.8)">Graduating May 2026</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════ PROJECTS ══════════ -->
+<section id="projects">
+  <!-- BG: circuit board pattern -->
+  <div class="sbg">
+    <svg viewBox="0 0 1200 700" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <linearGradient id="pg1" x1="0%" y1="0%" x2="100%" y2="100%">
+          <stop offset="0%" stop-color="#0ea5e9" stop-opacity=".08"/>
+          <stop offset="100%" stop-color="#6366f1" stop-opacity=".06"/>
+        </linearGradient>
+      </defs>
+      <!-- large bg ellipse -->
+      <ellipse cx="1100" cy="300" rx="400" ry="350" fill="url(#pg1)">
+        <animateTransform attributeName="transform" type="translate" values="0,0;-15,20;0,0" dur="11s" repeatCount="indefinite"/>
+      </ellipse>
+      <ellipse cx="100" cy="600" rx="280" ry="220" fill="url(#pg1)">
+        <animateTransform attributeName="transform" type="translate" values="0,0;12,-10;0,0" dur="9s" repeatCount="indefinite"/>
+      </ellipse>
+      <!-- circuit board lines -->
+      <g stroke="#0ea5e9" stroke-width="1" opacity=".1" fill="none">
+        <path d="M50,100 H200 V200 H350">
+          <animate attributeName="stroke-dashoffset" values="0;-300" dur="4s" repeatCount="indefinite"/>
+          <animate attributeName="stroke-dasharray" values="300,0" dur=".1s" repeatCount="1" fill="freeze"/>
+        </path>
+        <path d="M1100,50 V200 H950 V350 H800">
+          <animate attributeName="stroke-dashoffset" values="0;-500" dur="5s" repeatCount="indefinite"/>
+        </path>
+        <path d="M200,600 H400 V500 H600 V580 H750" stroke-dasharray="8,6">
+          <animate attributeName="stroke-dashoffset" values="0;-120" dur="3s" repeatCount="indefinite"/>
+        </path>
+        <path d="M1000,600 V480 H850 V380" stroke-dasharray="6,8">
+          <animate attributeName="stroke-dashoffset" values="0;-100" dur="3.5s" repeatCount="indefinite"/>
+        </path>
+      </g>
+      <!-- circuit pads -->
+      <g fill="#0ea5e9" opacity=".12">
+        <rect x="195" y="195" width="10" height="10" rx="2"/>
+        <rect x="345" y="195" width="10" height="10" rx="2"/>
+        <rect x="945" y="195" width="10" height="10" rx="2"/>
+        <rect x="795" y="345" width="10" height="10" rx="2"/>
+        <animateTransform attributeName="transform" type="translate" values="0,0;0,8;0,0" dur="6s" repeatCount="indefinite"/>
+      </g>
+      <!-- floating icons -->
+      <text x="80" y="150" font-size="36" opacity=".07">⚡</text>
+      <text x="1050" y="120" font-size="40" opacity=".07">
+        🔗
+        <animateTransform attributeName="transform" type="translate" values="0,0;0,-15;0,0" dur="5s" repeatCount="indefinite"/>
+      </text>
+      <text x="60" y="550" font-size="40" opacity=".07">
+        💡
+        <animateTransform attributeName="transform" type="translate" values="0,0;10,0;0,0" dur="6s" repeatCount="indefinite"/>
+      </text>
+      <text x="1100" y="580" font-size="36" opacity=".07">🛠</text>
+      <!-- orbiting ring -->
+      <circle cx="1100" cy="120" r="40" fill="none" stroke="#6366f1" stroke-width="1.5" opacity=".12" stroke-dasharray="15,10">
+        <animateTransform attributeName="transform" type="rotate" values="0 1100 120;360 1100 120" dur="12s" repeatCount="indefinite"/>
+      </circle>
+    </svg>
+  </div>
+
+  <div class="si">
+    <div class="rv"><div class="stg">Work</div></div>
+    <h2 class="sh rv" style="transition-delay:.06s">Featured <span class="oa">Projects</span></h2>
+    <p class="ss rv" style="transition-delay:.12s">A selection of AI/ML projects built during my graduate studies and beyond.</p>
+    <div class="pg sg">
+      <div class="pc"><div class="pi"><i class="fas fa-brain"></i></div><div class="pcat">AI · Neuro-Symbolic · 2024</div><div class="pt">Neuro-Symbolic AI Career Decision System</div><p class="pd">Hybrid AI system combining LLM-based reasoning with symbolic rule validation for structured, explainable career recommendations. Deployed as a live application with real-time decision evaluation.</p><div class="tgs"><span class="tg">Python</span><span class="tg">RAG</span><span class="tg">LLMs</span><span class="tg">Rule-Based Systems</span><span class="tg">LangChain</span></div></div>
+      <div class="pc"><div class="pi"><i class="fas fa-image"></i></div><div class="pcat">Deep Learning · 2024</div><div class="pt">Image Caption Generator</div><p class="pd">Deep learning pipeline using CNNs for feature extraction and LSTMs for sequence-based caption generation, with dynamic image input and real-world evaluation across diverse datasets.</p><div class="tgs"><span class="tg">Python</span><span class="tg">CNN</span><span class="tg">LSTM</span><span class="tg">PyTorch</span><span class="tg">Deep Learning</span></div></div>
+      <div class="pc"><div class="pi"><i class="fas fa-chart-bar"></i></div><div class="pcat">ML · Data Science · 2024</div><div class="pt">Business Prediction using Yelp Dataset</div><p class="pd">ML pipeline to predict business success using location, category, and review-based features. Developed interactive visualizations to generate data-driven recommendations from model outputs.</p><div class="tgs"><span class="tg">Python</span><span class="tg">Scikit-learn</span><span class="tg">Plotly</span><span class="tg">ML</span></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════ EXPERIENCE ══════════ -->
+<section id="experience">
+  <!-- BG: flowing career path lines -->
+  <div class="sbg">
+    <svg viewBox="0 0 1200 700" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
+      <!-- bg gradient blob -->
+      <ellipse cx="200" cy="350" rx="350" ry="300" fill="#8b5cf6" opacity=".04">
+        <animateTransform attributeName="transform" type="translate" values="0,0;18,14;0,0" dur="10s" repeatCount="indefinite"/>
+      </ellipse>
+      <ellipse cx="1050" cy="250" rx="280" ry="240" fill="#f97316" opacity=".04">
+        <animateTransform attributeName="transform" type="translate" values="0,0;-12,18;0,0" dur="12s" repeatCount="indefinite"/>
+      </ellipse>
+      <!-- wavy path -->
+      <path d="M0,350 C200,250 400,450 600,350 C800,250 1000,400 1200,320" fill="none" stroke="#8b5cf6" stroke-width="2" opacity=".07" stroke-dasharray="12,8">
+        <animate attributeName="stroke-dashoffset" values="0;-200" dur="6s" repeatCount="indefinite"/>
+      </path>
+      <path d="M0,500 C300,380 500,550 800,430 C1000,360 1100,480 1200,420" fill="none" stroke="#f97316" stroke-width="1.5" opacity=".06" stroke-dasharray="8,10">
+        <animate attributeName="stroke-dashoffset" values="0;-180" dur="7s" repeatCount="indefinite"/>
+      </path>
+      <!-- milestone dots on path -->
+      <g fill="#8b5cf6" opacity=".15">
+        <circle cx="150" cy="290" r="10">
+          <animate attributeName="r" values="10;14;10" dur="3s" repeatCount="indefinite"/>
+        </circle>
+        <circle cx="450" cy="440" r="10">
+          <animate attributeName="r" values="10;14;10" dur="3s" begin="1s" repeatCount="indefinite"/>
+        </circle>
+        <circle cx="750" cy="310" r="10">
+          <animate attributeName="r" values="10;14;10" dur="3s" begin="2s" repeatCount="indefinite"/>
+        </circle>
+        <circle cx="1050" cy="420" r="10">
+          <animate attributeName="r" values="10;14;10" dur="3s" begin=".5s" repeatCount="indefinite"/>
+        </circle>
+      </g>
+      <!-- floating badges top right -->
+      <g transform="translate(950,80)" opacity=".1">
+        <rect width="120" height="36" rx="10" fill="#f97316"/>
+        <text x="14" y="23" font-size="13" fill="white" font-family="sans-serif" font-weight="bold">⭐ Research</text>
+        <animateTransform attributeName="transform" type="translate" values="950,80;950,65;950,80" dur="5s" repeatCount="indefinite"/>
+      </g>
+      <g transform="translate(960,140)" opacity=".1">
+        <rect width="100" height="36" rx="10" fill="#8b5cf6"/>
+        <text x="12" y="23" font-size="13" fill="white" font-family="sans-serif" font-weight="bold">💼 Intern</text>
+        <animateTransform attributeName="transform" type="translate" values="960,140;960,125;960,140" dur="6s" begin="1s" repeatCount="indefinite"/>
+      </g>
+      <!-- hexagon grid faint -->
+      <g opacity=".04" stroke="#8b5cf6" fill="none" stroke-width="1">
+        <polygon points="1050,500 1075,514 1075,542 1050,556 1025,542 1025,514"/>
+        <polygon points="1100,530 1125,544 1125,572 1100,586 1075,572 1075,544"/>
+        <polygon points="1000,530 1025,544 1025,572 1000,586 975,572 975,544"/>
+        <animateTransform attributeName="transform" type="translate" values="0,0;0,-10;0,0" dur="8s" repeatCount="indefinite"/>
+      </g>
+    </svg>
+  </div>
+
+  <div class="si">
+    <div class="rv"><div class="stg">Career</div></div>
+    <h2 class="sh rv" style="transition-delay:.06s">Work <span class="oa">Experience</span></h2>
+    <p class="ss rv" style="transition-delay:.12s">Roles and research positions that shaped my technical expertise.</p>
+    <div class="tl">
+      <div class="tli rv"><div class="tld"></div>
+        <div class="tlp">2025 – Present</div><div class="tlt">Graduate Assistant</div>
+        <div class="tlc"><i class="fas fa-university"></i> Texas A&amp;M University – Corpus Christi</div>
+        <ul class="tlb"><li>Engineered an end-to-end automation system using Python integrating Excel, Word, and Outlook workflows, reducing processing time from 100 minutes to under 2 minutes.</li><li>Designed scalable data pipelines for structured extraction and validation across Excel and Word formats.</li></ul>
+      </div>
+      <div class="tli rv" style="transition-delay:.1s"><div class="tld"></div>
+        <div class="tlp">May 2023 – July 2023</div><div class="tlt">Industrial Training – ML Engineer (Certificate)</div>
+        <div class="tlc"><i class="fas fa-microchip"></i> Intel Unnati</div>
+        <ul class="tlb"><li>Built a smartphone price prediction system using regression and ensemble models based on device specifications.</li><li>Performed feature importance analysis to identify key pricing drivers and validated model performance across categories.</li></ul>
+      </div>
+      <div class="tli rv" style="transition-delay:.2s"><div class="tld"></div>
+        <div class="tlp">January 2023 – February 2023</div><div class="tlt">Remote Intern – NLP / ML (Certificate)</div>
+        <div class="tlc"><i class="fas fa-leaf"></i> TCS iON</div>
+        <ul class="tlb"><li>Conducted sentiment analysis on textual data using six models: Naive Bayes, Logistic Regression, LSVC, KNN, CNN, and MLP.</li><li>Benchmarked model performance and identified LSVC as the best-performing model based on accuracy and efficiency.</li></ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════ PUBLICATIONS ══════════ -->
+<section id="publications">
+  <!-- BG: floating papers + academic motifs -->
+  <div class="sbg">
+    <svg viewBox="0 0 1200 700" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <linearGradient id="pubg" x1="0%" y1="0%" x2="100%" y2="100%">
+          <stop offset="0%" stop-color="#10b981" stop-opacity=".07"/>
+          <stop offset="100%" stop-color="#0ea5e9" stop-opacity=".05"/>
+        </linearGradient>
+      </defs>
+      <ellipse cx="1050" cy="200" rx="360" ry="300" fill="url(#pubg)">
+        <animateTransform attributeName="transform" type="translate" values="0,0;-15,12;0,0" dur="10s" repeatCount="indefinite"/>
+      </ellipse>
+      <ellipse cx="150" cy="550" rx="250" ry="200" fill="url(#pubg)">
+        <animateTransform attributeName="transform" type="translate" values="0,0;12,-8;0,0" dur="13s" repeatCount="indefinite"/>
+      </ellipse>
+      <!-- floating paper cards -->
+      <g opacity=".08">
+        <g transform="translate(800,80)">
+          <rect width="140" height="100" rx="8" fill="#10b981" stroke="#10b981" stroke-width="1"/>
+          <line x1="12" y1="30" x2="128" y2="30" stroke="white" stroke-width="2"/>
+          <line x1="12" y1="45" x2="110" y2="45" stroke="white" stroke-width="1.5"/>
+          <line x1="12" y1="58" x2="120" y2="58" stroke="white" stroke-width="1.5"/>
+          <line x1="12" y1="71" x2="95" y2="71" stroke="white" stroke-width="1.5"/>
+          <animateTransform attributeName="transform" type="translate" values="800,80;800,62;800,80" dur="6s" repeatCount="indefinite"/>
+        </g>
+        <g transform="translate(980,180)">
+          <rect width="120" height="88" rx="8" fill="#0ea5e9"/>
+          <line x1="10" y1="26" x2="110" y2="26" stroke="white" stroke-width="2"/>
+          <line x1="10" y1="40" x2="95" y2="40" stroke="white" stroke-width="1.5"/>
+          <line x1="10" y1="53" x2="100" y2="53" stroke="white" stroke-width="1.5"/>
+          <animateTransform attributeName="transform" type="translate" values="980,180;980,165;980,180" dur="7s" begin="1s" repeatCount="indefinite"/>
+        </g>
+        <g transform="translate(870,230)">
+          <rect width="100" height="76" rx="8" fill="#a855f7"/>
+          <line x1="8" y1="22" x2="92" y2="22" stroke="white" stroke-width="2"/>
+          <line x1="8" y1="35" x2="80" y2="35" stroke="white" stroke-width="1.5"/>
+          <line x1="8" y1="48" x2="85" y2="48" stroke="white" stroke-width="1.5"/>
+          <animateTransform attributeName="transform" type="translate" values="870,230;870,218;870,230" dur="5s" begin="2s" repeatCount="indefinite"/>
+        </g>
+      </g>
+      <!-- citation arcs -->
+      <g fill="none" opacity=".1">
+        <path d="M900,350 C950,300 1000,300 1050,350" stroke="#10b981" stroke-width="1.5">
+          <animate attributeName="stroke-dashoffset" values="0;-60" dur="3s" repeatCount="indefinite"/>
+          <animate attributeName="stroke-dasharray" values="60,0;60,0" dur=".1s"/>
+        </path>
+        <path d="M870,380 C920,440 980,430 1020,390" stroke="#0ea5e9" stroke-width="1.5">
+          <animate attributeName="stroke-dashoffset" values="0;-80" dur="4s" repeatCount="indefinite"/>
+        </path>
+      </g>
+      <!-- quote marks -->
+      <text x="80" y="160" font-size="100" fill="#10b981" opacity=".05" font-family="Georgia,serif">"</text>
+      <text x="1050" y="600" font-size="100" fill="#0ea5e9" opacity=".05" font-family="Georgia,serif">"</text>
+    </svg>
+  </div>
+
+  <div class="si">
+    <div class="rv"><div class="stg">Research</div></div>
+    <h2 class="sh rv" style="transition-delay:.06s">Publications &amp; <span class="oa">Research</span></h2>
+    <p class="ss rv" style="transition-delay:.12s">Peer-reviewed publications and conference proceedings.</p>
+    <div class="pbl sg">
+      <div class="pbc"><div class="pbn">01</div><div><div class="pbtl">Wrong Route Vehicle Identification Using Deep Learning</div><div class="pbm">Published Research Paper</div><div class="pba">Sahith Reddy Vellenki &middot; <a href="#" style="color:var(--a2);text-decoration:none">View Publication ↗</a></div></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════ SKILLS ══════════ -->
+<section id="skills">
+  <!-- BG: orbiting tech icons + rings -->
+  <div class="sbg">
+    <svg viewBox="0 0 1200 700" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
+      <!-- large concentric rings -->
+      <circle cx="1080" cy="350" r="180" fill="none" stroke="#f59e0b" stroke-width="1" opacity=".09" stroke-dasharray="14,10">
+        <animateTransform attributeName="transform" type="rotate" values="0 1080 350;360 1080 350" dur="25s" repeatCount="indefinite"/>
+      </circle>
+      <circle cx="1080" cy="350" r="240" fill="none" stroke="#f97316" stroke-width="1.5" opacity=".07" stroke-dasharray="8,14">
+        <animateTransform attributeName="transform" type="rotate" values="360 1080 350;0 1080 350" dur="35s" repeatCount="indefinite"/>
+      </circle>
+      <circle cx="1080" cy="350" r="300" fill="none" stroke="#fbbf24" stroke-width="1" opacity=".05" stroke-dasharray="20,12">
+        <animateTransform attributeName="transform" type="rotate" values="0 1080 350;360 1080 350" dur="45s" repeatCount="indefinite"/>
+      </circle>
+      <!-- orbiting skill icons around ring -->
+      <g opacity=".13">
+        <text x="0" y="0" font-size="22" transform="translate(1080,170)">🐍</text>
+        <text x="0" y="0" font-size="22" transform="translate(1230,310)">⚛️</text>
+        <text x="0" y="0" font-size="22" transform="translate(1170,510)">☁️</text>
+        <text x="0" y="0" font-size="22" transform="translate(920,510)">🔥</text>
+        <text x="0" y="0" font-size="22" transform="translate(870,310)">🤖</text>
+        <animateTransform attributeName="transform" type="rotate" values="0 1080 350;360 1080 350" dur="28s" repeatCount="indefinite"/>
+      </g>
+      <!-- left side: scattered tag pills -->
+      <g opacity=".07">
+        <rect x="30" y="80" width="80" height="26" rx="13" fill="#f59e0b"/>
+        <text x="48" y="98" font-size="11" fill="white" font-family="sans-serif" font-weight="600">PyTorch</text>
+        <rect x="30" y="130" width="70" height="26" rx="13" fill="#f97316"/>
+        <text x="46" y="148" font-size="11" fill="white" font-family="sans-serif" font-weight="600">Python</text>
+        <rect x="30" y="180" width="76" height="26" rx="13" fill="#fbbf24"/>
+        <text x="40" y="198" font-size="11" fill="white" font-family="sans-serif" font-weight="600">Kubernetes</text>
+        <rect x="130" y="105" width="60" height="26" rx="13" fill="#f59e0b"/>
+        <text x="142" y="123" font-size="11" fill="white" font-family="sans-serif" font-weight="600">Docker</text>
+        <animateTransform attributeName="transform" type="translate" values="0,0;5,0;0,0" dur="7s" repeatCount="indefinite"/>
+      </g>
+      <!-- bottom scatter -->
+      <g opacity=".06">
+        <rect x="60" y="540" width="64" height="26" rx="13" fill="#f97316"/>
+        <text x="70" y="558" font-size="11" fill="white" font-family="sans-serif" font-weight="600">TensorFlow</text>
+        <rect x="150" y="580" width="56" height="26" rx="13" fill="#f59e0b"/>
+        <text x="160" y="598" font-size="11" fill="white" font-family="sans-serif" font-weight="600">React</text>
+        <animateTransform attributeName="transform" type="translate" values="0,0;0,-8;0,0" dur="9s" repeatCount="indefinite"/>
+      </g>
+    </svg>
+  </div>
+
+  <div class="si">
+    <div class="rv"><div class="stg">Expertise</div></div>
+    <h2 class="sh rv" style="transition-delay:.06s">Technical <span class="oa">Skills</span></h2>
+    <p class="ss rv" style="transition-delay:.12s">Tools, languages, and frameworks I work with professionally.</p>
+    <div class="skg sg">
+      <div class="skgr"><div class="skgt"><i class="fas fa-brain"></i> AI / ML</div><div class="skis"><span class="ski">PyTorch</span><span class="ski">Scikit-learn</span><span class="ski">NLP</span><span class="ski">Deep Learning</span><span class="ski">LLMs</span><span class="ski">RAG</span><span class="ski">LangChain</span><span class="ski">LangGraph</span></div></div>
+      <div class="skgr"><div class="skgt"><i class="fas fa-code"></i> Languages</div><div class="skis"><span class="ski">Python</span><span class="ski">C++</span><span class="ski">C</span><span class="ski">SQL</span></div></div>
+      <div class="skgr"><div class="skgt"><i class="fas fa-server"></i> Backend</div><div class="skis"><span class="ski">FastAPI</span><span class="ski">Flask</span><span class="ski">REST APIs</span></div></div>
+      <div class="skgr"><div class="skgt"><i class="fas fa-tools"></i> Tools</div><div class="skis"><span class="ski">Git</span><span class="ski">Linux</span><span class="ski">Pandas</span><span class="ski">NumPy</span></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════ ACHIEVEMENTS ══════════ -->
+<section id="achievements">
+  <!-- BG: confetti stars + trophy glow -->
+  <div class="sbg">
+    <svg viewBox="0 0 1200 700" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <radialGradient id="tglow" cx="50%" cy="50%" r="50%">
+          <stop offset="0%" stop-color="#f97316" stop-opacity=".15"/>
+          <stop offset="100%" stop-color="#f97316" stop-opacity="0"/>
+        </radialGradient>
+      </defs>
+      <!-- trophy glow left -->
+      <ellipse cx="180" cy="350" rx="200" ry="200" fill="url(#tglow)">
+        <animate attributeName="rx" values="200;230;200" dur="4s" repeatCount="indefinite"/>
+        <animate attributeName="ry" values="200;220;200" dur="4s" repeatCount="indefinite"/>
+      </ellipse>
+      <!-- floating star confetti -->
+      <g opacity=".12">
+        <!-- stars scattered -->
+        <text x="100" y="120" font-size="28" fill="#f97316">★
+          <animateTransform attributeName="transform" type="translate" values="100,120;100,100;100,120" dur="4s" repeatCount="indefinite"/>
+        </text>
+        <text x="300" y="80" font-size="20" fill="#fbbf24">★
+          <animateTransform attributeName="transform" type="translate" values="300,80;300,65;300,80" dur="5s" begin=".8s" repeatCount="indefinite"/>
+        </text>
+        <text x="500" y="600" font-size="24" fill="#f97316">★
+          <animateTransform attributeName="transform" type="translate" values="500,600;500,582;500,600" dur="6s" begin="1.2s" repeatCount="indefinite"/>
+        </text>
+        <text x="1050" y="100" font-size="32" fill="#fbbf24">🏆
+          <animateTransform attributeName="transform" type="translate" values="1050,100;1050,82;1050,100" dur="5s" repeatCount="indefinite"/>
+        </text>
+        <text x="950" y="580" font-size="28" fill="#f97316">🥇
+          <animateTransform attributeName="transform" type="translate" values="950,580;950,564;950,580" dur="6s" begin="2s" repeatCount="indefinite"/>
+        </text>
+        <text x="1100" y="380" font-size="24" fill="#fbbf24">⭐
+          <animateTransform attributeName="transform" type="translate" values="1100,380;1100,364;1100,380" dur="4s" begin=".5s" repeatCount="indefinite"/>
+        </text>
+      </g>
+      <!-- celebration arcs -->
+      <g fill="none" opacity=".08">
+        <path d="M50,400 Q200,200 350,400" stroke="#f97316" stroke-width="2">
+          <animate attributeName="stroke-dashoffset" values="0;-300" dur="5s" repeatCount="indefinite"/>
+          <animate attributeName="stroke-dasharray" values="300,0" dur=".01s" fill="freeze"/>
+        </path>
+        <path d="M100,450 Q220,300 380,450" stroke="#fbbf24" stroke-width="1.5" stroke-dasharray="8,6">
+          <animate attributeName="stroke-dashoffset" values="0;-200" dur="4s" repeatCount="indefinite"/>
+        </path>
+      </g>
+      <!-- diamond shapes -->
+      <g opacity=".07" fill="#f97316">
+        <polygon points="1000,200 1012,220 1000,240 988,220">
+          <animateTransform attributeName="transform" type="rotate" values="0 1000 220;45 1000 220;0 1000 220" dur="6s" repeatCount="indefinite"/>
+        </polygon>
+        <polygon points="1100,450 1116,476 1100,502 1084,476">
+          <animateTransform attributeName="transform" type="rotate" values="0 1100 476;-45 1100 476;0 1100 476" dur="8s" repeatCount="indefinite"/>
+        </polygon>
+      </g>
+    </svg>
+  </div>
+
+  <div class="si">
+    <div class="rv"><div class="stg">Credentials</div></div>
+    <h2 class="sh rv" style="transition-delay:.06s">Certifications &amp; <span class="oa">Achievements</span></h2>
+    <p class="ss rv" style="transition-delay:.12s">Industry certifications validating AI, ML, and software engineering expertise.</p>
+    <div class="ag sg">
+      <div class="ac"><div class="aci acio"><i class="fas fa-certificate"></i></div><div><div class="act">IBM AI Engineering Professional Certification</div><p class="acd">IBM &middot; Credential in AI Engineering covering ML, Deep Learning &amp; NLP</p></div></div>
+      <div class="ac"><div class="aci acib"><i class="fas fa-code"></i></div><div><div class="act">JPMorgan Chase &amp; Co. Software Engineering Virtual Experience</div><p class="acd">Forage &middot; Software Engineering simulation covering real-world engineering tasks</p></div></div>
+      <div class="ac"><div class="aci acio"><i class="fas fa-brain"></i></div><div><div class="act">NLP and Deep Learning Nano Degree</div><p class="acd">PrepInsta &middot; Specialization in NLP techniques and deep learning architectures</p></div></div>
+      <div class="ac"><div class="aci acib"><i class="fas fa-newspaper"></i></div><div><div class="act">Published Research Paper</div><p class="acd">Wrong Route Vehicle Identification Using Deep Learning &middot; Peer-reviewed publication</p></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════ ABOUT ══════════ -->
+<section id="about">
+  <!-- BG: abstract portrait geometry -->
+  <div class="sbg">
+    <svg viewBox="0 0 1200 700" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <linearGradient id="abg" x1="0%" y1="0%" x2="100%" y2="100%">
+          <stop offset="0%" stop-color="#a855f7" stop-opacity=".08"/>
+          <stop offset="100%" stop-color="#ec4899" stop-opacity=".05"/>
+        </linearGradient>
+      </defs>
+      <ellipse cx="1050" cy="350" rx="380" ry="320" fill="url(#abg)">
+        <animateTransform attributeName="transform" type="translate" values="0,0;-12,16;0,0" dur="11s" repeatCount="indefinite"/>
+      </ellipse>
+      <ellipse cx="150" cy="180" rx="200" ry="160" fill="url(#abg)">
+        <animateTransform attributeName="transform" type="translate" values="0,0;10,-10;0,0" dur="9s" repeatCount="indefinite"/>
+      </ellipse>
+      <!-- person silhouette abstract -->
+      <g opacity=".05" fill="#a855f7">
+        <circle cx="950" cy="180" r="55"/>
+        <path d="M895,235 Q950,390 1005,235 L1060,480 H840 Z"/>
+      </g>
+      <!-- decorative lines -->
+      <line x1="0" y1="380" x2="350" y2="380" stroke="#a855f7" stroke-width="1" opacity=".08" stroke-dasharray="6,10">
+        <animate attributeName="stroke-dashoffset" values="0;-100" dur="4s" repeatCount="indefinite"/>
+      </line>
+      <line x1="0" y1="400" x2="280" y2="400" stroke="#ec4899" stroke-width="1" opacity=".07" stroke-dasharray="4,12">
+        <animate attributeName="stroke-dashoffset" values="0;-80" dur="5s" repeatCount="indefinite"/>
+      </line>
+      <!-- floating info badges right side -->
+      <g opacity=".09">
+        <g transform="translate(800,120)">
+          <rect width="160" height="36" rx="18" fill="#a855f7"/>
+          <text x="20" y="23" font-size="12" fill="white" font-family="sans-serif" font-weight="600">📍 India → USA</text>
+          <animateTransform attributeName="transform" type="translate" values="800,120;800,106;800,120" dur="6s" repeatCount="indefinite"/>
+        </g>
+        <g transform="translate(820,178)">
+          <rect width="140" height="36" rx="18" fill="#ec4899"/>
+          <text x="18" y="23" font-size="12" fill="white" font-family="sans-serif" font-weight="600">💼 Open to Work</text>
+          <animateTransform attributeName="transform" type="translate" values="820,178;820,164;820,178" dur="7s" begin="1s" repeatCount="indefinite"/>
+        </g>
+        <g transform="translate(780,236)">
+          <rect width="170" height="36" rx="18" fill="#a855f7"/>
+          <text x="18" y="23" font-size="12" fill="white" font-family="sans-serif" font-weight="600">🎓 MS CS · TAMUCC 2026</text>
+          <animateTransform attributeName="transform" type="translate" values="780,236;780,222;780,236" dur="5s" begin="2s" repeatCount="indefinite"/>
+        </g>
+      </g>
+      <!-- sparkle dots -->
+      <g fill="#a855f7" opacity=".1">
+        <circle cx="700" cy="550" r="4"><animate attributeName="r" values="4;7;4" dur="3s" repeatCount="indefinite"/></circle>
+        <circle cx="750" cy="580" r="3"><animate attributeName="r" values="3;6;3" dur="4s" begin="1s" repeatCount="indefinite"/></circle>
+        <circle cx="680" cy="590" r="5"><animate attributeName="r" values="5;8;5" dur="3.5s" begin=".5s" repeatCount="indefinite"/></circle>
+      </g>
+    </svg>
+  </div>
+
+  <div class="si">
+    <div class="at rv fl">
+      <div class="stg">About</div>
+      <h2 class="sh">About <span class="oa">Me</span></h2>
+      <p>I'm <strong>Sahith Reddy Vellenki</strong>, an AI &amp; ML Engineer pursuing my Master's in Computer Science at Texas A&amp;M University – Corpus Christi. I'm passionate about building intelligent systems powered by LLMs, deep learning, and modern AI frameworks.</p>
+      <p>My journey spans a B.Tech in Computer Science from Malla Reddy College of Engineering and Technology, and hands-on experience in automation systems, NLP, ML model benchmarking, and backend development.</p>
+      <p>I hold certifications including the IBM AI Engineering Professional Certification and a JPMorgan Chase Software Engineering Virtual Experience. Currently seeking AI Engineer, ML Engineer, or Data Science roles at the entry level.</p>
+      <div style="margin-top:1.6rem;display:flex;gap:.9rem;flex-wrap:wrap;">
+        <a class="sb gh" href="https://github.com/sahithreddy" target="_blank" rel="noopener"><i class="fab fa-github"></i> GitHub</a>
+        <a class="sb li" href="https://www.linkedin.com/in/sahithreddy" target="_blank" rel="noopener"><i class="fab fa-linkedin-in"></i> LinkedIn</a>
+        <a class="sb gm" href="mailto:vellenkisahithreddy@gmail.com"><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M24 5.457v13.909c0 .904-.732 1.636-1.636 1.636h-3.819V11.73L12 16.64l-6.545-4.91v9.273H1.636A1.636 1.636 0 0 1 0 19.366V5.457c0-2.023 2.309-3.178 3.927-1.964L5.455 4.64 12 9.548l6.545-4.91 1.528-1.145C21.69 2.28 24 3.434 24 5.457z"/></svg> Gmail</a>
+      </div>
+    </div>
+    <div class="ah rv fr" style="transition-delay:.15s">
+      <div class="hi"><div class="hii"><i class="fas fa-graduation-cap"></i></div><div><div class="hit">MS Computer Science</div><div class="his">Texas A&amp;M University – Corpus Christi &middot; 2024 &ndash; 2026 &middot; GPA 3.5</div></div></div>
+      <div class="hi"><div class="hii"><i class="fas fa-university"></i></div><div><div class="hit">B.Tech Computer Science &amp; Engineering</div><div class="his">Malla Reddy College of Engineering and Technology &middot; 2020&ndash;2024 &middot; GPA 8.0/10</div></div></div>
+      <div class="hi"><div class="hii"><i class="fas fa-map-marker-alt"></i></div><div><div class="hit">Location</div><div class="his">United States (Open to Relocation)</div></div></div>
+      <div class="hi"><div class="hii"><i class="fas fa-envelope"></i></div><div><div class="hit">Contact</div><div class="his"><a href="mailto:vellenkisahithreddy@gmail.com" style="color:var(--a2);text-decoration:none">vellenkisahithreddy@gmail.com</a></div></div></div>
+      <div class="hi"><div class="hii"><i class="fas fa-phone"></i></div><div><div class="hit">Phone</div><div class="his">361-585-3712</div></div></div>
+      <div class="hi"><div class="hii"><i class="fas fa-briefcase"></i></div><div><div class="hit">Open to Work</div><div class="his">AI Engineer &middot; ML Engineer &middot; Data Scientist &middot; Software Engineer</div></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="fb rv">Sahith Reddy Vellenki</div>
+  <p style="font-size:.81rem;color:var(--tx2);margin-bottom:.3rem">AI/ML Engineer · MS CS @ Texas A&amp;M University – Corpus Christi</p>
+  <div class="fl">
+    <a onclick="goTo('home')">Home</a><a onclick="goTo('projects')">Projects</a>
+    <a onclick="goTo('experience')">Experience</a><a onclick="goTo('publications')">Publications</a>
+    <a onclick="goTo('skills')">Skills</a><a onclick="goTo('achievements')">Achievements</a>
+    <a onclick="goTo('about')">About</a>
+  </div>
+  <div style="display:flex;justify-content:center;gap:.9rem;margin:1.2rem 0;flex-wrap:wrap;">
+    <a class="sb gh" href="https://github.com/sahithreddy" target="_blank" rel="noopener"><i class="fab fa-github"></i> GitHub</a>
+    <a class="sb li" href="https://www.linkedin.com/in/sahithreddy" target="_blank" rel="noopener"><i class="fab fa-linkedin-in"></i> LinkedIn</a>
+    <a class="sb gm" href="mailto:vellenkisahithreddy@gmail.com"><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M24 5.457v13.909c0 .904-.732 1.636-1.636 1.636h-3.819V11.73L12 16.64l-6.545-4.91v9.273H1.636A1.636 1.636 0 0 1 0 19.366V5.457c0-2.023 2.309-3.178 3.927-1.964L5.455 4.64 12 9.548l6.545-4.91 1.528-1.145C21.69 2.28 24 3.434 24 5.457z"/></svg> Gmail</a>
+  </div>
+  <div class="cp">&copy; <span id="yr"></span> <strong>Sahith Reddy Vellenki</strong>. All rights reserved. · Designed &amp; built by Sahith Reddy Vellenki.<br>Unauthorized reproduction or distribution is strictly prohibited. &#8471; All content &amp; publications are the intellectual property of Sahith Reddy Vellenki.</div>
+</footer>
+
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+document.addEventListener('contextmenu',e=>e.preventDefault());
+
+/* PROGRESS */
+const prog=document.getElementById('prog');
+function upProg(){const t=window.scrollY,d=document.documentElement.scrollHeight-window.innerHeight;prog.style.width=(t/d*100)+'%';}
+
+/* CURSOR */
+const cg=document.getElementById('cglow');
+document.addEventListener('mousemove',e=>{cg.style.left=e.clientX+'px';cg.style.top=e.clientY+'px';},{passive:true});
+
+/* THEME */
+const html=document.documentElement;
+const tt=document.getElementById('tt'),ti=document.getElementById('ti');
+tt.addEventListener('click',()=>{const d=html.dataset.theme==='dark';html.dataset.theme=d?'light':'dark';ti.className=d?'fas fa-moon':'fas fa-sun';});
+
+/* SCROLL */
+function goTo(id){const el=document.getElementById(id);if(!el)return;window.scrollTo({top:el.getBoundingClientRect().top+window.scrollY-65,behavior:'smooth'});}
+
+/* YEAR */
+document.getElementById('yr').textContent=new Date().getFullYear();
+
+/* NAV */
+const mn=document.getElementById('mn');
+const secs=[...document.querySelectorAll('section[id]')];
+const nls=[...document.querySelectorAll('.nl a')];
+function upNav(){
+  mn.classList.toggle('sc',window.scrollY>20);
+  let cur='';secs.forEach(s=>{if(window.scrollY>=s.offsetTop-130)cur=s.id;});
+  nls.forEach(a=>a.classList.toggle('na',a.dataset.s===cur));
+}
+
+/* OBSERVERS */
+const ioR=new IntersectionObserver((es,ob)=>{es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('vis');ob.unobserve(e.target);}});},{threshold:.1,rootMargin:'0px 0px -35px 0px'});
+document.querySelectorAll('.rv').forEach(el=>ioR.observe(el));
+const ioS=new IntersectionObserver((es,ob)=>{es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('vis');ob.unobserve(e.target);}});},{threshold:.07,rootMargin:'0px 0px -25px 0px'});
+document.querySelectorAll('.sg').forEach(el=>ioS.observe(el));
+
+/* COUNTERS */
+function animC(el){const t=+el.dataset.count,dur=1500,stp=16,inc=t/(dur/stp);let c=0;const r=setInterval(()=>{c=Math.min(c+inc,t);el.textContent=Math.round(c)+(c>=t&&t>=5?'+':'');if(c>=t)clearInterval(r);},stp);}
+const ioC=new IntersectionObserver((es,ob)=>{es.forEach(e=>{if(e.isIntersecting){e.target.querySelectorAll('[data-count]').forEach(animC);ob.unobserve(e.target);}});},{threshold:.35});
+document.querySelectorAll('.sr').forEach(el=>ioC.observe(el));
+
+/* TYPING */
+const td=document.getElementById('typed');
+const words=[' Sahith Reddy',' an AI Engineer',' an ML Engineer',' a Deep Learning Engineer'];
+let wi=0,ci=0,dl=false;
+function type(){const w=words[wi];if(!dl){td.textContent=w.substring(0,ci+1);ci++;if(ci===w.length){dl=true;setTimeout(type,1900);return;}setTimeout(type,82);}else{td.textContent=w.substring(0,ci-1);ci--;if(ci===0){dl=false;wi=(wi+1)%words.length;setTimeout(type,320);return;}setTimeout(type,44);}}
+setTimeout(type,1000);
+
+/* CARD TILT */
+document.querySelectorAll('.pc').forEach(c=>{
+  c.addEventListener('mousemove',e=>{const r=c.getBoundingClientRect(),x=e.clientX-r.left,y=e.clientY-r.top,cx=r.width/2,cy=r.height/2;c.style.transform=`perspective(600px) rotateY(${(x-cx)/
